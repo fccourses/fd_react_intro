@@ -5,26 +5,21 @@ ReactDOM;
 class Counter extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       counter: 0,
     };
   }
-
-  increment = () => {
-    this.setState({
-      counter: this.state.counter + 1,
-    });
-  };
-
+  increment = () => this.setState({ counter: this.state.counter + 1 });
   decrement = () => {
-     this.setState({
-       counter: this.state.counter - 1,
-     });
+    if (this.state.counter > 0) {
+      this.setState({ counter: this.state.counter - 1 });
+    }
   };
-
   render() {
     const { counter } = this.state;
+    if (!this.props.isShown) {
+      return null;
+    }
     return React.createElement(
       React.Fragment,
       null,
@@ -47,6 +42,6 @@ class Counter extends React.Component {
   }
 }
 
-const reactElement = React.createElement(Counter);
+const reactElement = React.createElement(Counter, { isShown: true });
 
 ReactDOM.render(reactElement, document.getElementById('root'));
